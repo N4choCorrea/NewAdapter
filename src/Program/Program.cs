@@ -3,25 +3,34 @@
 //     Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 //--------------------------------------------------------------------------------
-
+using System.Collections.Generic;
 using System;
-using ClassLibrary;
-
-namespace ConsoleApplication
+namespace AdapterExample
 {
-    /// <summary>
-    /// Programa de consola de demostración.
-    /// </summary>
-    public static class Program
+    public class Program
     {
-        /// <summary>
-        /// Punto de entrada al programa principal.
-        /// </summary>
-        public static void Main()
+        public static void Main(string[] args)
         {
-            var train = new Train();
-            train.StartEngines();
-            Console.WriteLine("Hello World!");
+            Plug plug = new Plug("1");
+            PlugAdapter plugAdapter = new PlugAdapter(plug);
+            plugAdapter.On();
+            plugAdapter.Off();
+            Console.WriteLine(plugAdapter.GetStatus());
+            WashingMachine washingMachine = new WashingMachine("590");
+            washingMachine.On();
+            washingMachine.Off();
+            Console.WriteLine(washingMachine.GetStatus());
+            Bulb bulb = new Bulb("1");
+            bulb.On();
+            bulb.Off();
+            Console.WriteLine(bulb.GetStatus());
+            List <ISmartDevice> smartDevices = new List<ISmartDevice>();
+            smartDevices.Add(plugAdapter);
+            smartDevices.Add(washingMachine);
+            smartDevices.Add(bulb);
+            
+            
         }
     }
 }
+
